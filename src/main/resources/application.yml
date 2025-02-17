@@ -1,29 +1,46 @@
 spring:
   datasource:
-    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    username: sa
-    password: rjbc2095
-    url: jdbc:sqlserver://LAPTOP-S0I071QI\\SQLEXPRESS:1433;databaseName=NorthwindX
+    url: jdbc:mysql://localhost:3306/seek
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    continue-on-error: true
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        batch_size: 30
+        order_inserts: true
+  security:
+    user:
+      name: user  # Usuario por defecto
+      password: 1234
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
+  config:
+    properties:
+      business:
+        average-life-expectancy: 80
 server:
-  port: 8085
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8089/eureka/
+  port: 9090
 logging:
   file:
-    name: /home/usrfc/mth-applications/biller/log/northwindx.log
+    name: /home/usrfc/mth-applications/biller/log/seek-customer.log
   level:
-    root: ERROR
+    root: INFO
     org:
       springframework: ERROR
       hibernate: ERROR
+      springframework.boot.web.embedded.tomcat: INFO
     com:
-      rbenitez:
-        lambdas: DEBUG
+      seek:
+        rbenitez:
+          customer: DEBUG
   pattern:
     console: "%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n"
