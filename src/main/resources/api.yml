@@ -1,0 +1,502 @@
+openapi: 3.0.2
+info:
+  title: MIC Customer service
+  description: Mic by management customer
+  contact:
+    name: Roberto Benitez
+    email: rbenitez_20_95@hotmail.com
+  license:
+    name: rbenitez
+  version: 1.0.0
+servers:
+  - url: http://localhost:8081
+    description: Desarrollo
+paths:
+  /seek/customers:
+    post:
+      tags:
+        - crear
+      summary: crear clientes.
+      description: |
+        ## 👋 Propósito
+        
+        Mic de Negocio permite crear clientes.
+
+      operationId: crear
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/requestBodyCrearUsuario'
+        required: true
+      responses:
+        "200":
+          $ref: '#/components/responses/OkCreated'
+        "202":
+          $ref: '#/components/responses/Accepted'
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "405":
+          $ref: '#/components/responses/NotAllowed'
+        "500":
+          $ref: '#/components/responses/InternalServerErrorStatus'
+        "504":
+          $ref: '#/components/responses/GatewayTimeoutErrorStatus'
+  /seek/customers/life-expectancy:
+    get:
+      tags:
+        - obtenerclientes
+      summary: obtener cliente en con su indicador de esperanza de vida
+      description: |
+        ## 👋 Propósito
+        
+        Esta Mic de Negocio permite obtener todos los clientes con un idicador de esperanza de vida.
+
+      operationId: obtenerclientes
+      responses:
+        "200":
+          $ref: '#/components/responses/OkGetCustomer'
+        "202":
+          $ref: '#/components/responses/Accepted'
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "405":
+          $ref: '#/components/responses/NotAllowed'
+        "500":
+          $ref: '#/components/responses/InternalServerErrorStatus'
+        "504":
+          $ref: '#/components/responses/GatewayTimeoutErrorStatus'
+  /seek/customers/metrics:
+    get:
+      tags:
+        - metrics
+      summary: obtener las metricas de todos loc clientes.
+      description: |
+        ## 👋 Propósito
+        
+        Esta operación de Negocio permite obtener las metricas de los Clientes.
+
+      operationId: metrics
+      responses:
+        "200":
+          $ref: '#/components/responses/OkGetMetrics'
+        "202":
+          $ref: '#/components/responses/Accepted'
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "405":
+          $ref: '#/components/responses/NotAllowed'
+        "500":
+          $ref: '#/components/responses/InternalServerErrorStatus'
+        "504":
+          $ref: '#/components/responses/GatewayTimeoutErrorStatus'
+components:
+  schemas:
+    requestBodyCrearUsuario:
+      description: Datos para crear un cliente.
+      type: object
+      properties:
+        companyName:
+          type: string
+          maxLength: 20
+        names:
+          type: string
+          maxLength: 50
+        lastName:
+          type: string
+          maxLength: 50
+        age:
+          type: number
+          maximum: 100
+          minimum: 18
+        address:
+          type: string
+          maxLength: 254
+        dni:
+          type: string
+          maxLength: 8
+          minLength: 8
+        country:
+          type: string
+          maxLength: 50
+        phone:
+          type: string
+          maxLength: 9
+          minLength: 9
+        birthDate:
+          type: string
+          maxLength: 10
+          minLength: 10
+      required:
+        - companyName
+        - names
+        - lastName
+        - age
+        - address
+        - dni
+        - country
+        - phone
+        - birthDate
+      example:
+        customerType: "NORMAL"
+        names: "Roberto"
+        lastName: "Benitez Cruzado"
+        age: 20
+        address: "Av. los sauces 371"
+        dni: "12345678"
+        country: "Peru"
+        phone: "915184044"
+        birthDate: "20/04/1995"
+    StatusResponseOkMetrics:
+      type: object
+      properties:
+        ok:
+          type: boolean
+        message:
+          type: string
+        body:
+          $ref: '#/components/schemas/StatusResponseDataMetrics'
+    StatusResponseOkCreated:
+      type: object
+      properties:
+        ok:
+          type: boolean
+        message:
+          type: string
+        body:
+          $ref: '#/components/schemas/StatusResponseDataCreated'
+    StatusResponseOkListCustomers:
+      type: object
+      properties:
+        ok:
+          type: boolean
+        message:
+          type: string
+        body:
+          type:
+          $ref: '#/components/schemas/StatusResponseDataListCustomers'
+    StatusResponseDataCreated:
+      type: object
+      properties:
+        customerId:
+          type: string
+          maxLength: 50
+        companyName:
+          type: string
+          maxLength: 20
+        names:
+          type: string
+          maxLength: 50
+        lastName:
+          type: string
+          maxLength: 50
+        age:
+          type: number
+          maximum: 100
+          minimum: 18
+        address:
+          type: string
+          maxLength: 254
+        dni:
+          type: string
+          maxLength: 8
+          minLength: 8
+        country:
+          type: string
+          maxLength: 50
+        phone:
+          type: string
+          maxLength: 9
+          minLength: 9
+        birthDate:
+          type: string
+          maxLength: 10
+          minLength: 10
+        createAt:
+          type: string
+        dateLifeExpectancy:
+          type: string
+          format: date
+    StatusResponseDataMetrics:
+      type: object
+      properties:
+        averageAge:
+          type: number
+          format: double
+        ageStandardDeviation:
+          type: number
+          format: double
+    StatusResponseDataListCustomers:
+      type: array
+      items:
+        type: object
+        properties:
+          customerId:
+            type: integer
+            example: 101
+          companyName:
+            type: string
+            example: "Tech Solutions Ltd."
+          lastName:
+            type: string
+            example: "Benitez"
+          age:
+            type: integer
+            example: 35
+          names:
+            type: string
+            example: "Roberto Enrique"
+          address:
+            type: string
+            example: "1234 Elm Street, Springfield"
+          country:
+            type: string
+            example: "USA"
+          phone:
+            type: string
+            example: "915184044"
+          birthdate:
+            type: string
+            format: date
+            example: "20/04/1195"
+          createdAt:
+            type: string
+            format: date-time
+            example: "2025-02-16T08:30:00Z"
+          dateLifeExpectancy:
+            type: string
+            format: date
+            example: "20/01/2080"
+    StatusResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+        statusCode:
+          type: integer
+        type:
+          type: string
+        title:
+          type: string
+        detail:
+          type: string
+      description: Modelo de respuesta de error.
+    ErrorDto:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        httpStatus:
+          type: number
+        timestamp:
+          type: string
+      description: Modelo de respuesta de error.
+    StatusResponse_error:
+      type: object
+      properties:
+        errorMessage:
+          type: string
+        errorCode:
+          type: string
+        errorDetails:
+          type: array
+          items:
+            type: object
+  responses:
+    OkCreated:
+      description: Respuesta exitosa.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StatusResponseOkCreated'
+          examples:
+            OK:
+              $ref: '#/components/examples/OKCreated'
+    OkGetMetrics:
+      description: Respuesta exitosa.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StatusResponseOkMetrics'
+          examples:
+            OK:
+              $ref: '#/components/examples/OKGetMetrics'
+    OkGetCustomer:
+      description: Respuesta exitosa.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StatusResponseOkListCustomers'
+          examples:
+            OK:
+              $ref: '#/components/examples/OKGetCustomers'
+    Accepted:
+      description: Respuesta con error de validación y/o reglas de negocio.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StatusResponse'
+          examples:
+            Accepted:
+              $ref: '#/components/examples/Accepted'
+    BadRequest:
+      description: 'Respuesta que indica que no se ha enviado un campo obligatorio en el body o header o no se ha cumplido con la estructura del contrato.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StatusResponse'
+          examples:
+            BadRequest:
+              $ref: '#/components/examples/BadRequest'
+    NotFound:
+      description: Respuesta que indica que no se encontró el recurso solicitado.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StatusResponse'
+          examples:
+            NotFound:
+              $ref: '#/components/examples/NotFound'
+    Unauthorized:
+      description: Respuesta que indica Auth Token not found or not authorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StatusResponse'
+          examples:
+            NotFound:
+              $ref: '#/components/examples/Unauthorized'
+    NotAllowed:
+      description: Respuesta que indica metodo no permitido
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StatusResponse'
+          examples:
+            NotAllowed:
+              $ref: '#/components/examples/NotAllowed'
+    InternalServerErrorStatus:
+      description: Respuesta con error interno del servidor.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StatusResponse'
+          examples:
+            InternalServerError:
+              $ref: '#/components/examples/InternalServerErrorStatus'
+    GatewayTimeoutErrorStatus:
+      description: Respuesta con error de timeout del servidor.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StatusResponse'
+          examples:
+            GatewayTimeout:
+              $ref: '#/components/examples/GatewayTimeoutErrorStatus'
+  examples:
+    OKCreated:
+      value:
+        ok: true
+        message: "success"
+        body:
+          customerId: 1
+          customerType: "NORMAL"
+          names: "74084225"
+          lastName: "Roberto"
+          age: "Benitez Cruzado"
+          address: "Av. Los sauces 371"
+          dni: "915184044"
+          country: "Peru"
+          phone: "2017-07-21T17:32:28Z"
+          birthDate: "2017-07-21T17:32:28Z"
+          createdAt: "2017-07-21T17:32:28Z"
+    OKGetCustomers:
+      value:
+        ok: true
+        message: "success"
+        body:
+          - customerId: 1
+            companyName: "TECH S.A"
+            names: "Roberto Enrique"
+            lastName: "Benitez Cruzado"
+            age: 29
+            address: "Av. Los Sauces 371"
+            country: "PERU"
+            phone: "915184044"
+            birthdate: "1995-04-20"
+            createdAt: "2017-07-21T17:32:28Z"
+            dateLifeExpectancy: "2080-01-20"
+          - customerId: 2
+            companyName: "INNOVATECH"
+            names: "Maria Fernanda"
+            lastName: "Gomez Salazar"
+            age: 32
+            address: "Jr. Las Palmeras 102"
+            country: "PERU"
+            phone: "987654321"
+            birthdate: "1992-08-15"
+            createdAt: "2018-09-10T10:15:45Z"
+            dateLifeExpectancy: "2075-12-30"
+    OKGetMetrics:
+      value:
+        ok: true
+        message: "success"
+        body:
+          averageAge: 24.5
+          ageStandardDeviation: 3.85
+    Accepted:
+      value:
+        httpStatus: 202
+        code: 'rbenitez-customer-service'
+        message: Número de producto no válido.
+        timestamp: "1999-12-31T23:59:59"
+    BadRequest:
+      value:
+        httpStatus: 400
+        code : "data:OperationNotFound"
+        message : "Resource Not Found"
+        timestamp : "1999-12-31T23:59:59"
+    Unauthorized:
+      value:
+        httpStatus: 401
+        code: "data:SubscriptionKeyNotFound"
+        message: "Access Denied"
+        timestamp: "1999-12-31T23:59:59"
+    NotFound:
+      value:
+        httpStatus: 404
+        code : "data:OperationNotFound"
+        message : "Resource not found"
+        timestamp : "1999-12-31T23:59:59"
+    InternalServerErrorStatus:
+      value:
+        httpStatus: 500
+        code : "data:BackendConnectionFailure"
+        message : "Internal Server Error"
+        timestamp : "1999-12-31T23:59:59"
+    GatewayTimeoutErrorStatus:
+      value:
+        httpStatus: 504
+        code : "data:BackendConnectionFailure"
+        message : "Time out de conexion"
+        timestamp : "1999-12-31T23:59:59"
+    NotAllowed:
+      value:
+        httpStatus: 405
+        code : "data:BackendConnectionFailure"
+        message : "Metodo no permitido"
+        timestamp : "1999-12-31T23:59:59"
