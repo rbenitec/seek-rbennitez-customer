@@ -54,19 +54,4 @@ public class CustomerController {
                 customerService.getCustomerMetrics()).createResponse();
     }
 
-    /*
-    @GetMapping("/contact")
-    public List<Customer> findByContactTitle(@Param("contactTitle") String contactTitle) {
-        log.info("Call all customers with contact title: {}", contactTitle);
-        return customerService.findByContactTitle(contactTitle);
-    }
-
-    @GetMapping("/quantities/{header}")
-    public Map<Object, Long> findCustomerByHeader(@PathVariable("header") String header) {
-        log.info("Find quantities by: {}", header);
-        return customerService.findCustomerByHeader(header);
-    }
-
-     */
-
 }

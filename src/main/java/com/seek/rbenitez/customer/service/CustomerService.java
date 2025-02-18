@@ -12,7 +12,4 @@ public interface CustomerService {
     List<CustomerResponseDto> getCustomersLifeExpectancy();
     CustomerResponseDto saveCustomer(CustomerRequestDto customer);
     CustomerMetricsResponse getCustomerMetrics();
-    //List<Customer> findByContactTitle(String contactTitle);
-    //Customer findCustomerById(String customerId);
-    //Map<Object, Long> findCustomerByHeader (String header);
 }
