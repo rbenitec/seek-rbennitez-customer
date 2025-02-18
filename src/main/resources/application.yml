@@ -26,8 +26,18 @@ spring:
     properties:
       business:
         average-life-expectancy: 80
+      user:
+        auth:
+          username: roberto
+          password: $2a$10$GY1CSo8yQm2DmonvQwrpMet99AEd9bW/NMD2cbhxxPHs3CJukMZum
+          role: ADMIN
 server:
   port: 9090
+jwt:
+  secret:
+    key: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  time:
+    expiration: 3600000
 logging:
   file:
     name: /home/usrfc/mth-applications/biller/log/seek-customer.log
