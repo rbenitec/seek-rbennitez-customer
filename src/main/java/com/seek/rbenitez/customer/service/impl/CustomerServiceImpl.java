@@ -104,48 +104,4 @@ public class CustomerServiceImpl implements CustomerService {
                 .sum();
         return Math.sqrt(summation / (customerList.size() - 1)); // Fórmula de desviación estándar muestral
     }
-
-    /**
-     * Other methods
-     */
-
-    @Override
-    public List<Customer> findByContactTitle(String contactTitle) {
-        return customersRepository.findAll().stream()
-                .filter(customers -> customers.getCompanyName().contains(contactTitle))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public Customer findCustomerById(String customerId) {
-        return customersRepository.findById(customerId).get();
-    }
-
-    @Override
-    public Map<Object, Long> findCustomerByHeader(String header) {
-        Map<Object, Long> result = new HashMap<>();
-        switch (header) {
-            case "CompanyName":
-                result = customersRepository.findAll().stream()
-                        .collect(Collectors.groupingBy(
-                                Customer::getCompanyName, Collectors.counting()
-                        ));
-                break;
-            case "Age":
-                result = customersRepository.findAll().stream()
-                        .collect(Collectors.groupingBy(
-                                Customer::getAge, Collectors.counting()
-                        ));
-                break;
-            case "Country":
-                result = customersRepository.findAll().stream()
-                        .collect(Collectors.groupingBy(
-                                Customer::getCountry, Collectors.counting()
-                        ));
-                break;
-        }
-        return result;
-    }
-
-
 }

@@ -47,6 +47,6 @@ public class CustomerRequestDto {
     private String phone;
     @NotEmpty(message = ":value is required")
     @Size(min = 10, max = 10, message = ":length is 10 characters")
-    @Pattern(regexp = ConstantUtil.PATTERN_DATE, message = ":format not valid")
+    @Pattern(regexp = ConstantUtil.PATTERN_DATE_DDMMYYYY, message = ":format not valid")
     private String birthDate;
 }
