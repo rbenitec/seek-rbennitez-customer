@@ -61,7 +61,7 @@ public class GlobalExceptionHandler {
                 .timestamp(LocalDateTime.now().toString())
                 .httpStatus(HttpStatus.SERVICE_UNAVAILABLE)
                 .build();
-        log.error("[businessExceptionHandler] - {}", error);
+        log.error("[handleDatabaseException] - {}", error);
         return new ResponseEntity<>(error, HttpStatus.SERVICE_UNAVAILABLE);
     }
 
@@ -73,7 +73,7 @@ public class GlobalExceptionHandler {
                 .timestamp(LocalDateTime.now().toString())
                 .httpStatus(HttpStatus.INTERNAL_SERVER_ERROR)
                 .build();
-        log.error("[businessExceptionHandler] - {}", error);
+        log.error("[handleGeneralException] - {}", error);
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
